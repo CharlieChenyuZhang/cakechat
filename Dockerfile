@@ -1,7 +1,8 @@
-FROM ubuntu:latest
-RUN apt-get update -y
-# RUN apt-get install -y python-pip python-dev build-essential
+FROM ubuntu:18.04
 
+ENV LANG C.UTF-8
+
+# Install some dependencies
 RUN apt-get update && apt-get install -y \
     curl \
     git \
@@ -23,9 +24,19 @@ RUN apt-get update && apt-get install -y \
     apt-get autoremove && \
     rm -rf /var/lib/apt/lists/*
 
+# Link python to python3 (since python 2 is used by default in ubuntu docker image)
+RUN ln -s /usr/bin/python3 /usr/bin/python
+
+# Install up-to-date pip
+RUN pip3 --no-cache-dir install -U pip
+
+# setup cakechat and install dependencies
+RUN git clone https://github.com/lukalabs/cakechat.git /root/cakechat
+RUN pip3 --no-cache-dir install -r /root/cakechat/requirements.txt -r /root/cakechat/requirements-local.txt
+RUN mkdir -p /root/cakechat/data/tensorboard
+
 COPY . /app
 WORKDIR /app
-RUN pip install -r requirements.txt && \
-    pip install -r requirements-local.txt
+
 ENTRYPOINT ["python"]
 CMD ["bin/cakechat_server.py"]
