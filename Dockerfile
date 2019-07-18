@@ -1,11 +1,12 @@
 FROM python:3-alpine
 
+RUN ln -s /usr/bin/python3 /usr/bin/python
+
 COPY . /app
 
 WORKDIR /app
 
-RUN pip3 --no-cache-dir install -U pip
-RUN pip3 --no-cache-dir install -r requirements.txt -r requirements-local.txt
+RUN pip install -r requirements.txt -r requirements-local.txt
 
 # FIXME: pull the trained data
 RUN python /tools/fetch.py
