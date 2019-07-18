@@ -1,6 +1,6 @@
 FROM python:3-alpine
 
-RUN pip3 install -r /root/cakechat/requirements.txt -r /root/cakechat/requirements-local.txt
+RUN pip install -r /cakechat/requirements.txt -r /cakechat/requirements-local.txt
 
 # FIXME: pull the trained data
 RUN python fetch.py
