@@ -10,6 +10,11 @@ _logger = get_logger(__name__)
 app = Flask(__name__)
 
 
+@app.route('/')
+def hello_world():
+    return 'Flask Dockerized'
+
+
 @app.route('/cakechat_api/v1/actions/get_response', methods=['POST'])
 def get_model_response():
     params = request.get_json()
