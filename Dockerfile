@@ -6,7 +6,8 @@ COPY . /app
 
 WORKDIR /app
 
-RUN pip install -r requirements.txt -r requirements-local.txt
+RUN pip3 --no-cache-dir install -U pip
+RUN pip3 --no-cache-dir install -r requirements.txt -r requirements-local.txt
 
 # FIXME: pull the trained data
 RUN python /tools/fetch.py
