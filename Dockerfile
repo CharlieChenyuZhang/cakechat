@@ -34,7 +34,7 @@ RUN pip3 --no-cache-dir install -U pip
 RUN git clone https://github.com/lukalabs/cakechat.git /root/cakechat
 RUN pip3 --no-cache-dir install -r /root/cakechat/requirements.txt -r /root/cakechat/requirements-local.txt
 RUN mkdir -p /root/cakechat/data/tensorboard
-RUN python tools/fetch.py
+RUN python /root/cakechat/tools/fetch.py
 
 COPY . /app
 WORKDIR /app
